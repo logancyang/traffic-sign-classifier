@@ -17,8 +17,8 @@ The goals / steps of this project are the following:
 
 [image0]: ./examples/classes.png "Visualization"
 [image1]: ./examples/class_distribution.png "Distribution"
-[image2]: ./examples/normalization.jpg "Normalization"
-[image3]: ./examples/grayscale.jpg "Grayscale"
+[image2]: ./examples/normalization.png "Normalization"
+[image3]: ./examples/grayscale.png "Grayscale"
 [image4]: ./examples/random_noise0.png "Translation"
 [image5]: ./examples/random_noise1.png "Rotation"
 [image6]: ./examples/random_noise2.png "Zoom"
@@ -46,9 +46,9 @@ The goals / steps of this project are the following:
 
 Here is an exploratory visualization of the data set. First, all classes are shown with a representative image. Next, a bar chart showing how the classes are distributed. Some of the classes are over-represented and some are under-represented. The idea of data augmentation comes in at this point.
 
-![alt text][image 0]
+![alt text][image0]
 
-![alt text][image 1]
+![alt text][image1]
 
 ### Design and Test a Model Architecture
 
