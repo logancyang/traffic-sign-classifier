@@ -105,7 +105,7 @@ My final model consisted of the following layers:
 To train the model, I used `AdamOptimizer` which is better than vanilla gradient descent.
 
 ```
-EPOCHS = 25
+EPOCHS = 20
 BATCH_SIZE = 150
 rate = 0.002
 ```
@@ -113,14 +113,15 @@ rate = 0.002
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
-* training set accuracy of 99.9%.
-* validation set accuracy of 97.0%.
-* test set accuracy of 94.4%.
+* training set accuracy of 99.8%.
+* validation set accuracy of 98.4%.
+* test set accuracy of 94.2%.
 
 An iterative approach was chosen:
 * The first architecture was the vanilla LeNet5 from the lab. It yielded ~90% test accuracy out-of-the-box, which was not bad. However, both training and validation accuracies are not high, indicating there's underfitting. The architecture couldn't catch enough details from the dataset, so a deeper / more complex model is needed.
 * The next starting point should be an architecture from the Yann LeCun paper on traffic sign classification. I adapted to its description, added an extra fully connected layer, then managed to get a validation accuracy of ~94%, a significant advantage over the previous model.
 * By printing training accuracy, clearly there was overfitting happening - as the training accuracy went up, validation accuracy went down after it hit 94%. So DROPOUT is added, the validation accuracy went up to ~97%.
+* To fully utilize the training data and have a better training/validation split, `StratifiedShuffleSplit` is used to obtain a validation set that has approximately the same percentage of each class as the training data. I tried splitting a new pair of training and validation set for each epoch, but it turned out that the validation accuracy could go as high as ~99% but the test accuracy didn't improve. Theoretically I thought having a new split each time should reduce overfitting, but somehow it wasn't the case. Possibly it's because I have the generated data in both training and validation, but not in test, so the model fits better for the generated data, but not test data. One approach to find the cause is to do an exploration in the test data and see what's different between test and validation.
 
 ### Test a Model on New Images
 
@@ -148,6 +149,8 @@ Here are the results of the prediction:
 
 
 The model was able to correctly guess 6 of the 6 traffic signs, which gives an accuracy of 100%.
+
+Compared to the test accuracy, this is obviously larger, reason being this is a very small sample and there is a chance that a model could guess right 6 out of 6. Say we have a binomial distribution with the success rate of `p`, where `p` can be the test accuracy. There is a chance that `x` can range from `0 - 6` even with a "true" accuracy of `p`. In this case, `x = 6`. It doesn't necessarily mean the model is better than what the previous test accuracy suggested. To better evaluate the model's performance, a much larger data is needed so that we can confidently check how well the model generalizes in real world.
 
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability.
 
